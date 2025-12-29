@@ -480,54 +480,22 @@
   <script src="js/scrollax.min.js"></script>
   
   <script src="js/main.js"></script>
-
   <script>
-    // --- THE PAGE LIBERATOR SCRIPT ---
-    // This script runs immediately and keeps checking to ensure scrolling is enabled
-    
-    $(window).on('load', function() {
-      console.log("Page Liberator: Loaded");
-
-      // 1. Force Scroll to be available immediately on HTML and BODY
-      $('html, body').css({
-        'overflow-y': 'auto',
-        'height': 'auto',
-        'position': 'relative',
-        'touch-action': 'pan-y'
-      });
-
-      // 2. Kill any "touchmove" prevention on the slider (Owl Carousel)
-      // This stops the slider from hijacking your finger when you try to scroll down
-      $('.owl-carousel').on('touchstart touchmove', function(e) {
-        // Allow the event to bubble up so the browser knows to scroll
-        // We do NOT call e.preventDefault() here
-        e.stopPropagation(); 
-      });
-
-      // 3. Brute force unlocker (checks every 500ms for 3 seconds)
-      // In case the template's main.js tries to lock the body again after loading
-      var unlocker = setInterval(function(){
-        $('body').removeClass('menu-show');
-        $('body').css('overflow', 'auto');
-        $('html').css('overflow', 'auto');
-      }, 500);
-
-      // Stop checking after 3 seconds to save battery
-      setTimeout(function(){ 
-        clearInterval(unlocker); 
-      }, 3000);
-    });
-
-    // 4. Universal Mobile Menu Fix (Keep menu closed logic)
+    // Universal Mobile Menu Fix
     $(document).ready(function(){
       $('.navbar-nav .nav-link').click(function(){
+        // 1. Force the mobile menu to close
         if($('.navbar-collapse').hasClass('show')) {
           $('.navbar-collapse').collapse('hide');
         }
+        
+        // 2. Force unlock scrolling on Android/iOS
         $('body').removeClass('menu-show');
         $('body').css('overflow', 'auto');
       });
     });
   </script>
 </body>
+    
+  </body>
 </html>
