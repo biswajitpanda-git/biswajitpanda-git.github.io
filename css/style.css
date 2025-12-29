@@ -9738,17 +9738,34 @@ a, button {
 }
 
 /* 7. MOBILE-ONLY "ANTI-FREEZE" SYSTEM */
+/* ==============================================
+   SMOOTH MOBILE SCROLLING FIXES 
+   (Performance Optimized)
+   ============================================== */
 @media (max-width: 991.98px) {
 
-    /* Force Vertical Scroll & Stop Locking */
-    html, body {
-        overflow-y: auto !important;   /* Force scrollbar */
-        height: auto !important;       /* prevent 0px height lock */
-        min-height: 100% !important;   
+    /* 1. PERFORMANCE FIX: Disable Fixed Backgrounds 
+       This is the #1 cause of scroll lag on phones. */
+    .hero-wrap, 
+    .slider-item, 
+    .img, 
+    .overlay {
+        background-attachment: scroll !important;
+        background-position: center center !important;
     }
 
-    /* DISABLE PARALLAX ANIMATIONS (The "Freeze" Fix) */
-    /* This overrides scrollax.js only on mobile so it stops recalculating */
+    /* 2. SMOOTHNESS FIX: Force Native Window Scroll 
+       'visible' lets the main window handle scrolling, 
+       restoring that native iOS/Android momentum feel. */
+    html, body {
+        height: auto !important;
+        overflow-x: hidden !important;
+        overflow-y: visible !important; 
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    /* 3. ANTI-FREEZE: Stop Parallax Calculations 
+       Prevents the content from jumping when the address bar moves. */
     .slider-text, 
     .slider-item, 
     .one-forth, 
@@ -9759,7 +9776,7 @@ a, button {
         transition: none !important; 
     }
     
-    /* Safety padding for bottom swipe */
+    /* 4. SAFETY: Ensure the body doesn't get cut off */
     body {
         padding-bottom: 50px;
     }
