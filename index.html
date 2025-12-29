@@ -480,6 +480,22 @@
   <script src="js/scrollax.min.js"></script>
   
   <script src="js/main.js"></script>
+  <script>
+    // Universal Mobile Menu Fix
+    $(document).ready(function(){
+      $('.navbar-nav .nav-link').click(function(){
+        // 1. Force the mobile menu to close
+        if($('.navbar-collapse').hasClass('show')) {
+          $('.navbar-collapse').collapse('hide');
+        }
+        
+        // 2. Force unlock scrolling on Android/iOS
+        $('body').removeClass('menu-show');
+        $('body').css('overflow', 'auto');
+      });
+    });
+  </script>
+</body>
     
   </body>
 </html>
