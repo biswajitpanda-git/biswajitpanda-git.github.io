@@ -9687,29 +9687,30 @@ textarea.form-control {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
 
-/* 1. Fix Hero Height */
+/* ==============================================
+   FINAL MOBILE STABILITY FIXES 
+   (Fixes Scroll Stuck + iPhone Freezing)
+   ============================================== */
 
+/* 1. Fix Hero Height (Modern Phones) */
 .ftco-vh-100, 
 .hero-wrap,
 .owl-carousel.home-slider .slider-item {
-  height: 100vh;       /* Fallback for older Androids */
-  height: 100dvh !important; /* Fix for modern iOS & Android Chrome */
-  min-height: 100vh;   /* Prevents collapsing on some Androids */
+  height: 100vh;
+  height: 100dvh !important; /* Dynamic height for iOS/Android */
+  min-height: 100vh;
 }
 
-/* 2. Fix Scroll Locking & touch response */
+/* 2. Base Scroll Settings */
 html, body {
-  overflow-y: scroll; /* Always show vertical scrollbar to prevent jumping */
-  overflow-x: hidden;       /* Stop side-scrolling */
-  height: auto;
+  overflow-x: hidden; 
   width: 100%;
-  -webkit-overflow-scrolling: touch; /* Momentum scrolling for iOS */
-  overscroll-behavior-y: none; /* Prevents "pull-to-refresh" effect sticking the page */
+  -webkit-overflow-scrolling: touch;
 }
 
-/* 3. Improve Tap Highlight on Android/iOS */
+/* 3. Remove Blue Tap Box */
 a, button {
-  -webkit-tap-highlight-color: transparent; /* Removes the blue/grey tap box */
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* 4. Notch Support */
@@ -9718,10 +9719,8 @@ a, button {
   padding-right: env(safe-area-inset-right);
 }
 
-/* --- MOBILE FIXES (Append to bottom of style.css) --- */
-
-/* 1. Fix iPhone "Stuck" on Hero Slider */
-/* This tells Owl Carousel to allow vertical scrolling */
+/* 5. UNIVERSAL TOUCH FIX (Crucial for Hero) */
+/* Tells the browser: "Let the user scroll down even if touching the slider" */
 .owl-carousel, 
 .owl-stage-outer, 
 .owl-stage, 
@@ -9729,28 +9728,42 @@ a, button {
 .hero-wrap,
 .slider-item {
     touch-action: pan-y !important; 
-    -webkit-overflow-scrolling: touch !important;
 }
 
-/* 2. Fix Android "Partial" Scrolling */
-/* Ensures the body creates a scrollbar regardless of address bar size */
-@media (max-width: 991.98px) {
-html, body {
-    overflow-y: scroll !important; /* Force vertical scrollbar */
-    height: auto !important;       /* Stop fixed height locking */
-    min-height: 100%;              /* Ensure full height */
-}
-}
-
-/* 3. Bring content to front */
-/* Sometimes the hero gets stuck "on top" of the rest of the page */
+/* 6. Content Layering Fix */
 .ftco-section {
     position: relative; 
     z-index: 10; 
-    background: #000000; /* Ensure content has background */
+    background: #000000; 
 }
 
+/* 7. MOBILE-ONLY "ANTI-FREEZE" SYSTEM */
+@media (max-width: 991.98px) {
 
+    /* Force Vertical Scroll & Stop Locking */
+    html, body {
+        overflow-y: auto !important;   /* Force scrollbar */
+        height: auto !important;       /* prevent 0px height lock */
+        min-height: 100% !important;   
+    }
+
+    /* DISABLE PARALLAX ANIMATIONS (The "Freeze" Fix) */
+    /* This overrides scrollax.js only on mobile so it stops recalculating */
+    .slider-text, 
+    .slider-item, 
+    .one-forth, 
+    .one-third, 
+    .img, 
+    .text {
+        transform: none !important; 
+        transition: none !important; 
+    }
+    
+    /* Safety padding for bottom swipe */
+    body {
+        padding-bottom: 50px;
+    }
+}
 
 
 
