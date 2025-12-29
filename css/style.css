@@ -9699,12 +9699,30 @@ textarea.form-control {
 
 /* 2. Fix Scroll Locking & touch response */
 html, body {
-  overflow-x: hidden;       /* Stop side-scrolling */
-  width: 100%;
-  -webkit-overflow-scrolling: touch; /* Momentum scrolling for iOS */
-  overscroll-behavior-y: none; /* Prevents "pull-to-refresh" effect sticking the page */
+    overflow-y: scroll !important;  /* Always allow vertical scroll */
+    overflow-x: hidden !important;  /* Stop side scroll */
+    height: auto !important;        /* Prevent fixed height locking */
+    position: relative !important;  /* Prevent 'fixed' body lock */
+    touch-action: pan-y !important; /* Allow vertical finger dragging */
+    -webkit-overflow-scrolling: touch !important;
 }
 
+.owl-carousel, 
+.owl-stage-outer, 
+.owl-stage, 
+.owl-item,
+.hero-wrap {
+    touch-action: pan-y; 
+}
+/* 3. Disable the specific "Menu Open" lock class */
+body.menu-show {
+    overflow: visible !important;
+    position: static !important;
+}
+/* 4. Safety: Ensure Preloader doesn't block touches if it hides incorrectly */
+#ftco-loader {
+    pointer-events: none !important; /* Allows clicks to pass through the loader */
+}
 /* 3. Improve Tap Highlight on Android/iOS */
 a, button {
   -webkit-tap-highlight-color: transparent; /* Removes the blue/grey tap box */
