@@ -9717,3 +9717,33 @@ a, button {
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
 }
+
+/* --- MOBILE FIXES (Append to bottom of style.css) --- */
+
+/* 1. Fix iPhone "Stuck" on Hero Slider */
+/* This tells Owl Carousel to allow vertical scrolling */
+.owl-carousel, 
+.owl-stage-outer, 
+.owl-stage, 
+.owl-item,
+.hero-wrap,
+.slider-item {
+    touch-action: pan-y !important; 
+    -webkit-overflow-scrolling: touch !important;
+}
+
+/* 2. Fix Android "Partial" Scrolling */
+/* Ensures the body creates a scrollbar regardless of address bar size */
+html, body {
+    overflow-y: scroll !important; /* Force vertical scrollbar */
+    height: auto !important;       /* Stop fixed height locking */
+    min-height: 100%;              /* Ensure full height */
+}
+
+/* 3. Bring content to front */
+/* Sometimes the hero gets stuck "on top" of the rest of the page */
+.ftco-section {
+    position: relative; 
+    z-index: 10; 
+    background: #000000; /* Ensure content has background */
+}
